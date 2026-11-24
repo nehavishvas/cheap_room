@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/faveicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cheap Rooms</title>
+
+  <!--=== Bootstrap Min CSS ===-->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <!--Dashboard css-->
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <!--Responsive css-->
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <!--=== Owl Carousel Min CSS ===-->
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <!--=== Owl Theme Default Min CSS ===-->
+  <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+  <!--=== FlatIcon ===-->
+  <link rel="stylesheet" href="assets/css/flaticon.css">
+  <!--=== FontAwesome ===-->
+  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css"> -->
+
+  <link rel="stylesheet" href="assets/css/slick.css">
+  <!--=== Slick Slider Theme CSS ===-->
+  <link rel="stylesheet" href="assets/css/slick-theme.css">
+  <!--=== FlatIcon ===-->
+  <link rel="stylesheet" href="assets/css/flaticon.css">
+  <!--=== FontAwesome ===-->
+
+
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+
+
+</body>
+
+<!-- Bootstrap bundle js -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<!-- Owl Carousel js -->
+<script src="assets/js/owl.carousel.min.js"></script>
+<!-- Owl Carousel Thumbs js -->
+<script src="assets/js/carousel-thumbs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+
+<!-- Slick Slider js -->
+<script src="assets/js/slick.min.js"></script>
+
+<!-- Javascript -->
+
+<script type="text/javascript">
+  $(window).scroll(function () {
+    var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+      shrinkOn = 300,
+      body = document.querySelector(".stkey-menu");
+    if ($(this).scrollTop() > 136) {
+      $('.stkey-menu').addClass("smaller");
+    }
+    else {
+      $('.stkey-menu').removeClass("smaller");
+    }
+  });   
+</script>
+
+<script type="text/javascript">
+$(window).on('load', function(){
+$('.slider-for').slick({
+slidesToShow: 1,
+slidesToScroll: 1,
+arrows: true,
+fade: true,
+asNavFor: '.slider-nav'
+});
+
+$('.slider-nav').slick({
+slidesToShow:4,
+slidesToScroll: 1,
+asNavFor: '.slider-for',
+focusOnSelect: true,
+arrows: true,
+});
+}); 
+</script>
+
+
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    const picker = new Litepicker({
+      element: document.getElementById('daterange'),
+      singleMode: false,
+      numberOfMonths: 2,
+      numberOfColumns: 2,
+      format: 'DD MMM YYYY',
+      minDate: new Date().toISOString().split('T')[0],
+      tooltipText: {
+        one: 'day',
+        other: 'days'
+      },
+      tooltipNumber: (totalDays) => totalDays - 1,
+      autoApply: true
+    });
+  });
+
+</script>
+
+
+<script type="text/javascript">
+  $('.accommodation-promotions-info .owl-carousel').owlCarousel({
+    loop: true,
+    margin: 20,
+    nav: true,
+    navText: [
+      "<i class='fa-solid fa-angle-left'></i>",
+      "<i class='fa-solid fa-angle-right'></i>"
+    ],
+    autoplay: true,
+    autoplayHoverPause: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 3
+      },
+      1000: {
+        items: 3
+      }
+    }
+  });
+</script>
+
+<script type="text/javascript">
+  $('.top-destinations-info .owl-carousel').owlCarousel({
+    loop: true,
+    margin: 20,
+    nav: true,
+    navText: [
+      "<i class='fa-solid fa-angle-left'></i>",
+      "<i class='fa-solid fa-angle-right'></i>"
+    ],
+    autoplay: true,
+    autoplayHoverPause: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 3
+      },
+      1000: {
+        items: 4
+      }
+    }
+  });
+</script>
+
+<script type="text/javascript">
+  const testDivs = document.querySelectorAll('.test-div');
+
+  // Store individual states per input
+  const states = Array.from(testDivs).map(() => ({
+    rooms: 1,
+    adults: 2,
+    children: 0,
+    childAges: []
+  }));
+
+  let activeIndex = null;
+
+  // Initialize each input & popup pair
+  testDivs.forEach((div, index) => {
+    const input = div.querySelector('.input-box');
+    const popup = div.querySelector('.popup');
+
+    // Controls inside popup
+    const roomMinus = popup.querySelector('.roomMinus');
+    const roomPlus = popup.querySelector('.roomPlus');
+    const roomsValue = popup.querySelector('.roomsValue');
+
+    const adultMinus = popup.querySelector('.adultMinus');
+    const adultPlus = popup.querySelector('.adultPlus');
+    const adultsValue = popup.querySelector('.adultsValue');
+
+    const childMinus = popup.querySelector('.childMinus');
+    const childPlus = popup.querySelector('.childPlus');
+    const childrenValue = popup.querySelector('.childrenValue');
+
+    const childAgesContainer = popup.querySelector('.childAgesContainer');
+
+    // Show popup and load state on input click
+    input.addEventListener('click', e => {
+      e.stopPropagation();
+
+      // Hide all other popups
+      testDivs.forEach((otherDiv, i) => {
+        const otherPopup = otherDiv.querySelector('.popup');
+        if (i !== index) otherPopup.style.display = 'none';
+      });
+
+      activeIndex = index;
+      loadStateToPopup(states[index]);
+      updateInputDisplay(index);
+      showPopupNear(input, popup);
+    });
+
+    // Initialize input display text
+    updateInputDisplay(index);
+
+    // Button events
+    roomMinus.onclick = () => {
+      if (activeIndex !== index) return;
+      const state = states[index];
+      if (state.rooms > 1) {
+        state.rooms--;
+        roomsValue.textContent = state.rooms;
+        updateInputDisplay(index);
+      }
+    };
+    roomPlus.onclick = () => {
+      if (activeIndex !== index) return;
+      const state = states[index];
+      state.rooms++;
+      roomsValue.textContent = state.rooms;
+      updateInputDisplay(index);
+    };
+
+    adultMinus.onclick = () => {
+      if (activeIndex !== index) return;
+      const state = states[index];
+      if (state.adults > 1) {
+        state.adults--;
+        adultsValue.textContent = state.adults;
+        updateInputDisplay(index);
+      }
+    };
+    adultPlus.onclick = () => {
+      if (activeIndex !== index) return;
+      const state = states[index];
+      state.adults++;
+      adultsValue.textContent = state.adults;
+      updateInputDisplay(index);
+    };
+
+    childMinus.onclick = () => {
+      if (activeIndex !== index) return;
+      const state = states[index];
+      if (state.children > 0) {
+        state.children--;
+        state.childAges.pop();
+        childrenValue.textContent = state.children;
+        updateChildAgesUI(state);
+        updateInputDisplay(index);
+      }
+    };
+    childPlus.onclick = () => {
+      if (activeIndex !== index) return;
+      const state = states[index];
+      state.children++;
+      state.childAges.push(0);
+      childrenValue.textContent = state.children;
+      updateChildAgesUI(state);
+      updateInputDisplay(index);
+    };
+
+    function loadStateToPopup(state) {
+      roomsValue.textContent = state.rooms;
+      adultsValue.textContent = state.adults;
+      childrenValue.textContent = state.children;
+      updateChildAgesUI(state);
+    }
+
+    function updateChildAgesUI(state) {
+      childAgesContainer.innerHTML = '';
+      if (state.children > 0) {
+        for (let i = 0; i < state.children; i++) {
+          const age = state.childAges[i] !== undefined ? state.childAges[i] : 0;
+          const div = document.createElement('div');
+          div.className = 'child-age';
+          div.innerHTML = `
+                  <label for="childAge${index}-${i}">Age of Child ${i + 1}:</label>
+                  <select id="childAge${index}-${i}" data-index="${i}">
+                    ${generateAgeOptions(age)}
+                  </select>
+                `;
+          childAgesContainer.appendChild(div);
+        }
+        childAgesContainer.querySelectorAll('select').forEach(select => {
+          select.addEventListener('change', e => {
+            const idx = parseInt(e.target.dataset.index);
+            states[index].childAges[idx] = parseInt(e.target.value);
+            updateInputDisplay(index);
+          });
+        });
+      }
+    }
+
+    function generateAgeOptions(selectedAge) {
+      let options = `<option value="0" ${selectedAge === 0 ? 'selected' : ''}>&lt;1 year old</option>`;
+      for (let i = 1; i <= 17; i++) {
+        options += `<option value="${i}" ${selectedAge === i ? 'selected' : ''}>${i} years old</option>`;
+      }
+      return options;
+    }
+
+    function updateInputDisplay(idx) {
+      const state = states[idx];
+      const roomsText = state.rooms + (state.rooms === 1 ? ' Room' : ' Rooms');
+      const adultsText = state.adults + (state.adults === 1 ? ' Adult' : ' Adults');
+      const childrenText = state.children + (state.children === 1 ? ' Child' : ' Children');
+      const inp = testDivs[idx].querySelector('.input-box');
+      inp.value = `${roomsText}, ${adultsText}, ${childrenText}`;
+    }
+
+    function showPopupNear(input, popup) {
+      const rect = input.getBoundingClientRect();
+      popup.style.top = rect.bottom + window.scrollY + 5 + 'px';
+      popup.style.left = rect.left + window.scrollX + 'px';
+      popup.style.display = 'block';
+    }
+  });
+
+  // Hide popup if clicked outside any popup or input
+  document.addEventListener('click', e => {
+    testDivs.forEach(div => {
+      const popup = div.querySelector('.popup');
+      if (!div.contains(e.target)) {
+        popup.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    const picker = new Litepicker({
+      element: document.getElementById('daterange'),
+      singleMode: false,
+      numberOfMonths: 2,
+      numberOfColumns: 2,
+      format: 'DD MMM YYYY',
+      minDate: new Date().toISOString().split('T')[0],
+      tooltipText: {
+        one: 'day',
+        other: 'days'
+      },
+      tooltipNumber: (totalDays) => totalDays - 1,
+      autoApply: true
+    });
+  });
+
+</script>
+
+<script type="text/javascript">
+  const minRange = document.getElementById('min-range');
+  const maxRange = document.getElementById('max-range');
+  const minPriceInput = document.getElementById('min-price');
+  const maxPriceInput = document.getElementById('max-price');
+  const sliderRange = document.getElementById('slider-range');
+
+  const formatNumber = (num) => num.toLocaleString('en-IN');
+
+  const updateSliderRange = () => {
+    const min = parseInt(minRange.value);
+    const max = parseInt(maxRange.value);
+    const rangeWidth = maxRange.max - minRange.min;
+
+    const left = ((min - minRange.min) / rangeWidth) * 100;
+    const right = ((max - minRange.min) / rangeWidth) * 100;
+
+    sliderRange.style.left = `${left}%`;
+    sliderRange.style.width = `${right - left}%`;
+  };
+
+  minRange.addEventListener('input', () => {
+    let minVal = parseInt(minRange.value);
+    let maxVal = parseInt(maxRange.value);
+    if (minVal > maxVal - 1000) {
+      minVal = maxVal - 1000;
+      minRange.value = minVal;
+    }
+    minPriceInput.value = formatNumber(minVal);
+    updateSliderRange();
+  });
+
+  maxRange.addEventListener('input', () => {
+    let minVal = parseInt(minRange.value);
+    let maxVal = parseInt(maxRange.value);
+    if (maxVal < minVal + 1000) {
+      maxVal = minVal + 1000;
+      maxRange.value = maxVal;
+    }
+    maxPriceInput.value = formatNumber(maxVal);
+    updateSliderRange();
+  });
+
+  minPriceInput.addEventListener('change', () => {
+    let val = parseInt(minPriceInput.value.replace(/,/g, '')) || 0;
+    val = Math.max(0, Math.min(val, parseInt(maxRange.value) - 1000));
+    minRange.value = val;
+    minPriceInput.value = formatNumber(val);
+    updateSliderRange();
+  });
+
+  maxPriceInput.addEventListener('change', () => {
+    let val = parseInt(maxPriceInput.value.replace(/,/g, '')) || 0;
+    val = Math.max(parseInt(minRange.value) + 1000, Math.min(val, 119970));
+    maxRange.value = val;
+    maxPriceInput.value = formatNumber(val);
+    updateSliderRange();
+  });
+
+  // Initialize on load
+  window.addEventListener('DOMContentLoaded', updateSliderRange); 
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  $(window).scroll(function () {
+    var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+      shrinkOn = 300,
+      body = document.querySelector(".stkey-menu");
+    if ($(this).scrollTop() > 136) {
+      $('.stkey-menu').addClass("smaller");
+    }
+    else {
+      $('.stkey-menu').removeClass("smaller");
+    }
+  });   
+</script>
+
+
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", () => {
+    const dropdownBtn = document.getElementById("sortDropdownBtn");
+    const dropdownList = document.getElementById("sortOptionsList");
+
+    dropdownBtn.addEventListener("click", () => {
+      const expanded = dropdownBtn.getAttribute("aria-expanded") === "true";
+      dropdownBtn.setAttribute("aria-expanded", !expanded);
+      dropdownList.classList.toggle("hidden");
+    });
+
+    // Option click
+    dropdownList.addEventListener("click", (e) => {
+      if (e.target.tagName === "LI") {
+        const selectedText = e.target.textContent;
+        const selectedSort = e.target.dataset.sort;
+
+        dropdownBtn.querySelector(".sort-label").textContent = `Sort by: ${selectedText}`;
+        dropdownBtn.setAttribute("data-selected-sorter", selectedSort);
+
+        // Close dropdown
+        dropdownBtn.setAttribute("aria-expanded", "false");
+        dropdownList.classList.add("hidden");
+      }
+    });
+
+    // Optional: click outside to close
+    document.addEventListener("click", (e) => {
+      if (!dropdownBtn.contains(e.target) && !dropdownList.contains(e.target)) {
+        dropdownBtn.setAttribute("aria-expanded", "false");
+        dropdownList.classList.add("hidden");
+      }
+    });
+  }); 
+</script>
+
+
+
+</html>
